@@ -1,0 +1,95 @@
+import React, { useState } from 'react';
+
+// mui
+import Button from "@mui/material/Button";
+import SendIcon from '@mui/icons-material/Send';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+// component 
+import Loader from '../components/Loader'
+
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+
+// action
+import { register } from '../actions/user.action';
+import { RootState } from '../reducer';
+
+const Register: React.FC = () => {
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state: RootState) => state.userLogin);
+  const { loading, data } = userLogin;
+
+  const onSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(register({ name: name, email: email, password: password }));
+  }
+
+  return (
+    <Container maxWidth="sm">
+      <Box sx={{ my: 3 }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          MOVILOG
+        </Typography>
+        <Typography variant="h5" component="h1" gutterBottom>
+          Create an account
+        </Typography>
+        {
+          loading ? (
+            <Loader />
+          ) : (
+            <Box sx={{ boxShadow: 5, borderRadius: 3, p: 5 }}>
+              <form onSubmit={onSignUp}>
+                <TextField
+                  required
+                  sx={{ mb: 2, width: '100%' }}
+                  id="outlined-name-input"
+                  label="Name"
+                  placeholder="Steve"
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <TextField
+                  required
+                  sx={{ mb: 2, width: '100%' }}
+                  id="outlined-email-input"
+                  label="Email"
+                  type="email"
+                  placeholder="example@gmail.com"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <TextField
+                  required
+                  sx={{ mb: 2, width: '100%' }}
+                  id="outlined-password-input"
+                  label="Password"
+                  type="password"
+                  autoComplete="current-password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+
+                <Button
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                  sx={{ mb: 2 }}
+                  disableElevation
+                  type="submit" >
+                  create
+                </Button>
+
+              </form>
+              <Link to="/login" style={{ textDecoration: 'none' }}>Login to My Account</Link>
+            </Box>
+          )}
+      </Box>
+    </Container>
+  )
+}
+
+export default Register;
