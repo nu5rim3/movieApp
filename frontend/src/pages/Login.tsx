@@ -16,17 +16,15 @@ import { useDispatch, useSelector } from "react-redux";
 // action
 import { loginUser } from '../actions/user.action';
 import { RootState } from '../reducer';
+import ErrorAlert from '../components/ErrorAlert';
 
 const Login: React.FC = () => {
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
     const dispatch = useDispatch();
     const userLogin = useSelector((state: RootState) => state.userLogin);
-    const { loading, data } = userLogin;
-
-    useEffect(() => {
-    }, [data]);
+    const { loading, error } = userLogin;
 
     const onSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -47,6 +45,8 @@ const Login: React.FC = () => {
                     {
                         loading ? (
                             <Loader />
+                        ) : error ? (
+                            <ErrorAlert />
                         ) : (
                             <Box>
                                 <form onSubmit={onSignIn}>
@@ -86,3 +86,34 @@ const Login: React.FC = () => {
 }
 
 export default Login;
+
+{/* <Box>
+<form onSubmit={onSignIn}>
+    <TextField
+        required
+        sx={{ mb: 2, width: '100%' }}
+        id="outlined-required"
+        label="Email"
+        type="email"
+        placeholder="example@gmail.com"
+        onChange={(e) => setEmail(e.target.value)}
+    />
+    <TextField
+        required
+        sx={{ mb: 2, width: '100%' }}
+        id="outlined-password-input"
+        label="Password"
+        type="password"
+        onChange={(e) => setPassword(e.target.value)}
+    />
+    <Button
+        variant="contained"
+        endIcon={<SendIcon />}
+        sx={{ mb: 2 }}
+        disableElevation
+        type="submit" >
+        Login
+    </Button>
+</form>
+<Link to="/register" style={{ textDecoration: 'none' }}>Create new Account</Link>
+</Box> */}

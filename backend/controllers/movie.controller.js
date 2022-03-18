@@ -1,4 +1,5 @@
 const Movie = require('../models/movie.model');
+var multer  = require('multer')
 /**
  * 
  * @param {*} req 
@@ -49,9 +50,9 @@ exports.get = async (req, res, next) => {
         const _id = req.params._id;
         const movie = await Movie.findById(_id);
         if (!movie) return next(new Error('Movie does not exist'));
-        res.status(200).json({
-            data: movie
-        });
+        res.status(200).json(
+            movie
+        );
     } catch (error) {
         next(error)
     }

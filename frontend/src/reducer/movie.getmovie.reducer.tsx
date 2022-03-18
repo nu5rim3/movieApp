@@ -1,7 +1,7 @@
 import { MOVIE_DETAIL, MOVIE_DETAIL_FAILD, MOVIE_DETAIL_SUCCESS } from "../constants";
-import MovieDetails from "../types/types";
+import { MovieDetails, Movie } from "../types/types";
 
-let getMovieData = {
+let getMovieData: MovieDetails = {
     data: {}, loading: false, error: false,
 };
 /**
@@ -16,7 +16,7 @@ const getMovieReducer = (state = getMovieData, action: any) => {
             state = Object.assign({}, state, { loading: true });
             return state;
         case MOVIE_DETAIL_SUCCESS:
-            state = Object.assign({}, state, { data: action.data.data, loading: false });
+            state = Object.assign({}, state, { data: action.data, loading: false });
             return state;
         case MOVIE_DETAIL_FAILD:
             state = Object.assign({}, state, { error: true, loading: false });

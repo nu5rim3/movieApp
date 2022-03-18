@@ -106,6 +106,7 @@ export const get = (_id: any) => {
         )
             .then(response => {
                 dispatch({ type: MOVIE_DETAIL_SUCCESS, data: response.data });
+                // console.log(response.data)
             }).catch((err) => {
                 console.log('get Err- ', err);
                 dispatch({ type: MOVIE_DETAIL_FAILD });

@@ -1,5 +1,5 @@
 import { MOVIES_DETAIL, MOVIES_DETAIL_FAILD, MOVIES_DETAIL_SUCCESS } from "../constants";
-import MovieDetailsList from "../types/types";
+import { MovieDetailsList } from "../types/types";
 
 let getAllMovieData: MovieDetailsList = { data: [], loading: false, error: false };
 /**

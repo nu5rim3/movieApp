@@ -17,15 +17,16 @@ import { useDispatch, useSelector } from "react-redux";
 // action
 import { register } from '../actions/user.action';
 import { RootState } from '../reducer';
+import ErrorAlert from '../components/ErrorAlert';
 
 const Register: React.FC = () => {
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const dispatch = useDispatch();
   const userLogin = useSelector((state: RootState) => state.userLogin);
-  const { loading, data } = userLogin;
+  const { loading, error } = userLogin;
 
   const onSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,6 +45,8 @@ const Register: React.FC = () => {
         {
           loading ? (
             <Loader />
+          ) : error ? (
+            <ErrorAlert />
           ) : (
             <Box sx={{ boxShadow: 5, borderRadius: 3, p: 5 }}>
               <form onSubmit={onSignUp}>

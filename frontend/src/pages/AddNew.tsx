@@ -7,11 +7,11 @@ import Loader from '../components/Loader';
 import { add } from '../actions/movie.action';
 import { RootState } from '../reducer';
 
-const AddNew = () => {
-    const [name, setName] = useState('');
-    const [year, setYear] = useState('');
-    const [des, setDes] = useState('');
-    const [url, setUrl] = useState('');
+const AddNew: React.FC = () =>{
+    const [name, setName] = useState<string>('');
+    const [year, setYear] = useState<string>('');
+    const [des, setDes] = useState<string>('');
+    const [url, setUrl] = useState<string>('');
 
     const dispatch = useDispatch();
 
@@ -23,9 +23,7 @@ const AddNew = () => {
             plot: des,
             url: url
         }
-
         dispatch(add(JSON.stringify(movie)));
-
     }
 
     return (

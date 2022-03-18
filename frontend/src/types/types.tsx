@@ -1,5 +1,5 @@
 
-export default interface MovieDetails {
+export interface Movie {
     _id?: string;
     name?: string;
     year?: string;
@@ -7,8 +7,14 @@ export default interface MovieDetails {
     url?: string;
 }
 
-export default interface MovieDetailsList {
+export interface MovieDetails {
     error?: boolean;
     loading?: boolean;
-    data?: MovieDetails[];
+    data: Movie;
+}
+
+export interface MovieDetailsList {
+    error?: boolean;
+    loading?: boolean;
+    data: Movie[];
 }
