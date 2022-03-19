@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
-
+// component
+import Logo from '../../components/Logo';
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')({
@@ -19,6 +20,7 @@ const AuthLayout = () => {
 
     return (
         <RootStyle>
+            <Logo />
             <MainStyle>
                 <Outlet />
             </MainStyle>

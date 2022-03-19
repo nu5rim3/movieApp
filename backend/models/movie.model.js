@@ -16,6 +16,10 @@ const MovieSchema = new mongoose.Schema({
   url: {
     type: String,
     required: true
+  },
+  imgUrl: {
+    type: String,
+    required: true
   }
 })
 

@@ -1,11 +1,14 @@
-import { Box, Button, Container, Link, TextField, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { Box, Button, Container, Link, TextField, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { update, get } from '../actions/movie.action';
 import ErrorAlert from '../components/ErrorAlert';
 import Loader from '../components/Loader'
 import { RootState } from '../reducer';
+
+const formData = new FormData();
 
 const Update: React.FC = () => {
     const [movieState, setmovieState] = useState<any | null>(null)
@@ -30,25 +33,40 @@ const Update: React.FC = () => {
         setYear(movieState?.year)
         setDes(movieState?.plot)
         setUrl(movieState?.url)
+        setImgUrl(movieState?.imgUrl)
     }, [data]);
 
     const [name, setName] = useState(movieState?.name);
     const [year, setYear] = useState(movieState?.year);
     const [plot, setDes] = useState(movieState?.plot);
     const [url, setUrl] = useState(movieState?.url);
+    const [imgUrl, setImgUrl] = useState(movieState?.imgUrl);
 
     const onUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let movie = {
-            name: name,
-            year: year,
-            plot: plot,
-            url: url
-        }
+        formData.append("name", name);
+        formData.append("year", year);
+        formData.append("plot", plot);
+        formData.append("url", url);
 
-        dispatch(update(movieId, JSON.stringify(movie)));
+        dispatch(update(movieId, formData));
 
     }
+
+    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) {
+          return;
+        }
+        formData.append("file", e.target.files[0], e.target.files[0].name);
+    }
+
+    const MovieImage = styled('img')({
+        top: 0,
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        position: 'absolute'
+    });
 
     return (
         <Container maxWidth="sm">
@@ -103,6 +121,13 @@ const Update: React.FC = () => {
                                         value={url}
                                         onChange={(e) => setUrl(e.target.value)}
                                     />
+                                    <TextField
+                                        required
+                                        sx={{ mb: 2, width: '100%' }}
+                                        id="image"
+                                        type="file"
+                                        onChange={handleChange}
+                                    />
                                     <Button
                                         variant="contained"
                                         sx={{ mb: 2 }}
@@ -111,6 +136,9 @@ const Update: React.FC = () => {
                                         Update
                                     </Button>
                                 </form>
+                                <Box sx={{ pt: '100%', position: 'relative' }}>
+                                    <MovieImage src={`http://localhost:8070/${imgUrl}`} />
+                                </Box>
                             </Box>
                         )}
                 </Box>

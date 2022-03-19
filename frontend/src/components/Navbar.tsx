@@ -14,6 +14,7 @@ import { logout } from '../actions/user.action';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+const role = localStorage.getItem('Role');
 
 const ResponsiveAppBar = () => {
     const [anchorElNav, setAnchorElNav] = useState(null);
@@ -67,10 +68,12 @@ const ResponsiveAppBar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
+
                             <MenuItem>
-                                <Link to={'/movie/addnew'} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                    <Typography textAlign="center">Add new</Typography>
-                                </Link>
+                                {role === `"admin"` ?
+                                    <Link to={'/movie/addnew'} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                        <Typography textAlign="center">Add new</Typography>
+                                    </Link> : <></>}
                             </MenuItem>
                             <MenuItem onClick={onlogout}>
                                 <Typography textAlign="center">Logout</Typography>

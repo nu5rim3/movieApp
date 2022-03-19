@@ -34,12 +34,6 @@ const Login: React.FC = () => {
     return (
         <Container maxWidth="sm">
             <Box sx={{ my: 5 }}>
-                <Typography variant="h4" component="h1" gutterBottom>
-                    MOVILOG
-                </Typography>
-                <Typography variant="h5" component="h1" gutterBottom>
-                    Sign In
-                </Typography>
 
                 <Box sx={{ boxShadow: 5, borderRadius: 3, p: 5 }} display="flex" justifyContent="center" alignItems="center">
                     {
@@ -73,7 +67,7 @@ const Login: React.FC = () => {
                                         sx={{ mb: 2 }}
                                         disableElevation
                                         type="submit" >
-                                        Login
+                                        sign in
                                     </Button>
                                 </form>
                                 <Link to="/register" style={{ textDecoration: 'none' }}>Create new Account</Link>

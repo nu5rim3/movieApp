@@ -36,12 +36,6 @@ const Register: React.FC = () => {
   return (
     <Container maxWidth="sm">
       <Box sx={{ my: 3 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          MOVILOG
-        </Typography>
-        <Typography variant="h5" component="h1" gutterBottom>
-          Create an account
-        </Typography>
         {
           loading ? (
             <Loader />

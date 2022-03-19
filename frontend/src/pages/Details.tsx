@@ -12,12 +12,13 @@ import Loader from '../components/Loader';
 import { RootState } from '../reducer';
 import { Movie } from '../types/types';
 
+const role = localStorage.getItem('Role');
 
 const MovieImage = styled('img')({
     top: 0,
     width: '100%',
     height: '100%',
-    objectFit: 'cover',
+    objectFit: 'contain',
     position: 'absolute'
 });
 
@@ -56,7 +57,7 @@ const Details: React.FC = () => {
                 ) : (
                     <>
                         <Box sx={{ pt: '50%', position: 'relative' }}>
-                            <MovieImage src={'https://via.placeholder.com/700'} />
+                            <MovieImage src={`http://localhost:8070/${movieState.imgUrl}`} />
                         </Box>
                         <Stack spacing={2} sx={{ p: 3 }}>
                             <Typography variant="subtitle1" noWrap>
@@ -64,17 +65,18 @@ const Details: React.FC = () => {
 
                                 {movieState.year}
                             </Typography>
-                            <Typography variant="subtitle2" noWrap>
+                            <Typography variant="subtitle2">
                                 {movieState.plot}
                             </Typography>
                             <a target="_blank" href={movieState.url} rel="noreferrer">Torrent link</a>
                         </Stack>
-                        <Stack direction="row" spacing={2}>
-                            <Link to={{ pathname: `${pathname}/update/${movieId}` }} style={{ textDecoration: 'none', color: 'inherit', width: '100%' }} >
-                                <Button variant='contained' fullWidth>Edit</Button>
-                            </Link>
-                            <Button variant='contained' color='error' fullWidth onClick={onDelete}>Delete</Button>
-                        </Stack>
+                        {role === `"admin"` ?
+                            <Stack direction="row" spacing={2}>
+                                <Link to={{ pathname: `${pathname}/update/${movieId}` }} style={{ textDecoration: 'none', color: 'inherit', width: '100%' }} >
+                                    <Button variant='contained' fullWidth>Edit</Button>
+                                </Link>
+                                <Button variant='contained' color='error' fullWidth onClick={onDelete}>Delete</Button>
+                            </Stack> : <></>}
                     </>)}
         </Container >
     )

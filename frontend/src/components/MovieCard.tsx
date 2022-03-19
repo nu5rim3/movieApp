@@ -9,6 +9,10 @@ const MovieImage = styled('img')({
     objectFit: 'cover',
     position: 'absolute'
 });
+const RootCard = styled(Card)({
+    transition: "transform 0.15s ease-in-out",
+    "&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
+});
 
 interface Props {
     name: string;
@@ -16,13 +20,14 @@ interface Props {
     year: string;
     des: string;
     url: string;
+    imgUrl: string;
 }
 
-const MovieCard = ({ name, id, des, year }: Props) => {
+const MovieCard = ({ name, id, des, year, imgUrl }: Props) => {
     return (
-        <Card>
+        <RootCard>
             <Box sx={{ pt: '100%', position: 'relative' }}>
-                <MovieImage src={'https://via.placeholder.com/150'} />
+                <MovieImage src={`http://localhost:8070/${imgUrl}`} />
             </Box>
             <Stack spacing={2} sx={{ p: 3 }}>
                 <Typography variant="subtitle1" noWrap>
@@ -43,7 +48,7 @@ const MovieCard = ({ name, id, des, year }: Props) => {
                     </Link>
                 </Stack>
             </Stack>
-        </Card>
+        </RootCard>
     )
 }
 

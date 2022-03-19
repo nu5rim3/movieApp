@@ -1,5 +1,5 @@
 import { Box, Button, Container, Link, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import Loader from '../components/Loader';
 
@@ -7,7 +7,9 @@ import Loader from '../components/Loader';
 import { add } from '../actions/movie.action';
 import { RootState } from '../reducer';
 
-const AddNew: React.FC = () =>{
+const formData = new FormData();
+
+const AddNew: React.FC = () => {
     const [name, setName] = useState<string>('');
     const [year, setYear] = useState<string>('');
     const [des, setDes] = useState<string>('');
@@ -17,13 +19,18 @@ const AddNew: React.FC = () =>{
 
     const onAddNew = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let movie = {
-            name: name,
-            year: year,
-            plot: des,
-            url: url
+        formData.append("name", name);
+        formData.append("year", year);
+        formData.append("plot", des);
+        formData.append("url", url);
+        dispatch(add(formData));
+    }
+
+    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) {
+          return;
         }
-        dispatch(add(JSON.stringify(movie)));
+        formData.append("file", e.target.files[0], e.target.files[0].name);
     }
 
     return (
@@ -40,6 +47,7 @@ const AddNew: React.FC = () =>{
                                 required
                                 sx={{ mb: 2, width: '100%' }}
                                 label="Name"
+                                id="name"
                                 type="text"
                                 placeholder="Black Panther"
                                 onChange={(e) => setName(e.target.value)}
@@ -48,6 +56,7 @@ const AddNew: React.FC = () =>{
                                 required
                                 sx={{ mb: 2, width: '100%' }}
                                 label="Year"
+                                id="year"
                                 type="number"
                                 onChange={(e) => setYear(e.target.value)}
                             />
@@ -55,6 +64,7 @@ const AddNew: React.FC = () =>{
                                 required
                                 sx={{ mb: 2, width: '100%' }}
                                 label="Description"
+                                id="plot"
                                 type="text"
                                 onChange={(e) => setDes(e.target.value)}
                             />
@@ -62,8 +72,16 @@ const AddNew: React.FC = () =>{
                                 required
                                 sx={{ mb: 2, width: '100%' }}
                                 label="Torrent Link"
+                                id="url"
                                 type="text"
                                 onChange={(e) => setUrl(e.target.value)}
+                            />
+                            <TextField
+                                required
+                                sx={{ mb: 2, width: '100%' }}
+                                id="image"
+                                type="file"
+                                onChange={handleChange}
                             />
                             <Button
                                 variant="contained"

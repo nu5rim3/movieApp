@@ -36,15 +36,13 @@ export const getAll = () => {
  * @returns 
  */
 export const add = (data: any) => {
-
     return async (dispatch: any) => {
         dispatch({ type: ADD_NEW });
         await axios({
             method: "POST",
             url: API_URL + "/movie/add",
             headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
+                "Content-Type": "multipart/form-data",
                 "Authorization": JSON.parse(authorization || '')
             },
             data
@@ -153,8 +151,7 @@ export const update = (_id: any, data: any) => {
             method: "PUT",
             url: API_URL + `/movie/update/${_id}`,
             headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
+                "Content-Type": "multipart/form-data",
                 "Authorization": JSON.parse(authorization || '')
             },
             data

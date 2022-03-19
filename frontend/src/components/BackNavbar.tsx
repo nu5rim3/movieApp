@@ -15,6 +15,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../actions/user.action';
 
+const role = localStorage.getItem('Role');
+
 const BackNavbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -38,7 +40,6 @@ const BackNavbar = () => {
   const onlogout = async () => {
     dispatch(logout());
   }
-
   return (
     <AppBar position="static" sx={{ backgroundColor: "transparent", boxShadow: "none", }}>
       <Container maxWidth="xl">
@@ -74,9 +75,10 @@ const BackNavbar = () => {
             >
 
               <MenuItem>
-                <Link to={'/movie/addnew'} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <Typography textAlign="center">Add new</Typography>
-                </Link>
+                {role === `"admin"` ?
+                  <Link to={'/movie/addnew'} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Typography textAlign="center">Add new</Typography>
+                  </Link> : <></>}
               </MenuItem>
               <MenuItem onClick={onlogout}>
                 <Typography textAlign="center">Logout</Typography>

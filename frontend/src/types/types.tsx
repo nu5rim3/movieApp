@@ -5,6 +5,7 @@ export interface Movie {
     year?: string;
     plot?: string;
     url?: string;
+    imgUrl?: string | File;
 }
 
 export interface MovieDetails {

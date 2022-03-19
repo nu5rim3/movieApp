@@ -10,6 +10,7 @@ var multer  = require('multer')
 exports.add = async (req, res, next) => {
     try {
         const data = req.body;
+        data.imgUrl = req.file.path;
         const newMovie = new Movie(data);
         await newMovie.save();
         if (!newMovie) return next(new Error('Movie does not added'));
@@ -86,6 +87,9 @@ exports.update = async (req, res, next) => {
     try {
         const update = req.body
         const _id = req.params._id;
+        if(req.file.path) {
+            update.imgUrl = req.file.path;
+        }
         await Movie.findByIdAndUpdate(_id, update);
         const movie = await Movie.findById(_id)
         res.status(200).json({
