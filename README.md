@@ -32,7 +32,14 @@ And the application will run on the port 3000 in your browser.
 email - admin@gmail.com
 password - admin
 
-### basic user
-email - basic@gmail.com
-password - basic
+admin only
 
+add new movie, 
+update
+delete
+
+### basic user
+email - user1@gmail.com
+password - user1
+
+basic can only view the details

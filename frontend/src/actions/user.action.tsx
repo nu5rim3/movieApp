@@ -80,7 +80,6 @@ export const register = (data: any) => {
  * @returns 
  */
 export const logout = () => {
-    console.log('logout')
     return async (dispatch: any) => {
         dispatch({ type: USER_LOGOUT });
         await axios({
