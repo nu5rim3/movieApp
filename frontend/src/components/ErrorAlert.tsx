@@ -1,11 +1,26 @@
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+import React, { useEffect } from "react";
+import Snackbar from "@mui/material/Snackbar";
 import Alert from '@mui/material/Alert';
 
-export default function ErrorAlert() {
+interface Ialter {
+  message: string | undefined;
+}
+
+const ErrorAlert = (message: Ialter) => {
+  const [open, setOpen] = React.useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setOpen(false);
+    }, 2000);
+  }, [])
+
+
   return (
-    <Box sx={{mt: 10}}>
-      <Alert severity="error">Somting went wrong!</Alert>
-    </Box >
+    <Snackbar open={open}>
+      <Alert severity="error">{message.message}</Alert>
+    </Snackbar >
   );
 }
+
+export default ErrorAlert;

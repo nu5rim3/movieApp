@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { update, get } from '../actions/movie.action';
-import ErrorAlert from '../components/ErrorAlert';
 import Loader from '../components/Loader'
 import { RootState } from '../reducer';
 
@@ -79,8 +78,6 @@ const Update: React.FC = () => {
                     {
                         loading ? (
                             <Loader />
-                        ) : error ? (
-                            <ErrorAlert />
                         ) : (
                             <Box>
                                 <form onSubmit={onUpdate}>
@@ -122,7 +119,6 @@ const Update: React.FC = () => {
                                         onChange={(e) => setUrl(e.target.value)}
                                     />
                                     <TextField
-                                        required
                                         sx={{ mb: 2, width: '100%' }}
                                         id="image"
                                         type="file"

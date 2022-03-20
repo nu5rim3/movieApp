@@ -24,12 +24,14 @@ const Login: React.FC = () => {
     const [password, setPassword] = useState<string>("");
     const dispatch = useDispatch();
     const userLogin = useSelector((state: RootState) => state.userLogin);
-    const { loading, error } = userLogin;
+    const { data, loading, errorStatus } = userLogin;
+    let { error } = userLogin;
 
     const onSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(loginUser({ email: email, password: password }));
     }
+
 
     return (
         <Container maxWidth="sm">
@@ -39,9 +41,7 @@ const Login: React.FC = () => {
                     {
                         loading ? (
                             <Loader />
-                        ) : error ? (
-                            <ErrorAlert />
-                        ) : (
+                        ) :  (
                             <Box>
                                 <form onSubmit={onSignIn}>
                                     <TextField
@@ -73,6 +73,9 @@ const Login: React.FC = () => {
                                 <Link to="/register" style={{ textDecoration: 'none' }}>Create new Account</Link>
                             </Box>
                         )}
+                        {error ? (
+                            <ErrorAlert message={errorStatus} />
+                        ) :<></>}
                 </Box>
             </Box>
         </Container>
@@ -80,34 +83,3 @@ const Login: React.FC = () => {
 }
 
 export default Login;
-
-{/* <Box>
-<form onSubmit={onSignIn}>
-    <TextField
-        required
-        sx={{ mb: 2, width: '100%' }}
-        id="outlined-required"
-        label="Email"
-        type="email"
-        placeholder="example@gmail.com"
-        onChange={(e) => setEmail(e.target.value)}
-    />
-    <TextField
-        required
-        sx={{ mb: 2, width: '100%' }}
-        id="outlined-password-input"
-        label="Password"
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-    />
-    <Button
-        variant="contained"
-        endIcon={<SendIcon />}
-        sx={{ mb: 2 }}
-        disableElevation
-        type="submit" >
-        Login
-    </Button>
-</form>
-<Link to="/register" style={{ textDecoration: 'none' }}>Create new Account</Link>
-</Box> */}

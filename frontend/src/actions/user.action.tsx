@@ -33,15 +33,14 @@ export const loginUser = (data: any) => {
         }
         )
             .then(response => {
-                dispatch({ type: USER_LOGIN_SUCCESS, data: response.data });
                 // set localstorage
                 localStorage.setItem("Authorization", JSON.stringify(response.data.token));
                 localStorage.setItem("Role", JSON.stringify(response.data.user.role));
                 localStorage.setItem("userId", JSON.stringify(response.data.user.name));
+                dispatch({ type: USER_LOGIN_SUCCESS, data: response.data });
                 window.location.href = "/app/home"
             }).catch((err) => {
-                console.log('loginUser Err- ', err);
-                dispatch({ type: USER_LOGIN_FAILD });
+                dispatch({ type: USER_LOGIN_FAILD, errorStatus: err.response.data });
             })
     };
 }
@@ -81,7 +80,7 @@ export const register = (data: any) => {
  * @returns 
  */
 export const logout = () => {
-console.log('logout')
+    console.log('logout')
     return async (dispatch: any) => {
         dispatch({ type: USER_LOGOUT });
         await axios({

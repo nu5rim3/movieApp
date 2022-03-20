@@ -26,7 +26,7 @@ const Register: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const dispatch = useDispatch();
   const userLogin = useSelector((state: RootState) => state.userLogin);
-  const { loading, error } = userLogin;
+  const { loading, error, errorStatus } = userLogin;
 
   const onSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,7 +40,7 @@ const Register: React.FC = () => {
           loading ? (
             <Loader />
           ) : error ? (
-            <ErrorAlert />
+            <ErrorAlert message={errorStatus} />
           ) : (
             <Box sx={{ boxShadow: 5, borderRadius: 3, p: 5 }}>
               <form onSubmit={onSignUp}>

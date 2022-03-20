@@ -10,7 +10,7 @@ const { roles } = require('../roles/user.roles')
 exports.test = async (req, res, next) => {
     try {
         console.log('test')
-        res.status(200).send({ status: 'working', data: [1,2,3,4] })
+        res.status(200).send({ status: 'working', data: [1, 2, 3, 4] })
     } catch (error) {
         next(error)
     }
@@ -49,7 +49,7 @@ exports.login = async (req, res, next) => {
         const token = await user.generateAuthToken();
         res.status(200).send({ status: 'Login success', token: token, user: user });
     } catch (error) {
-        next(error)
+        res.status(401).send( error.message );
     }
 }
 /**

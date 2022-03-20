@@ -52,8 +52,6 @@ const Details: React.FC = () => {
             {
                 loading ? (
                     <Loader />
-                ) : error ? (
-                    <ErrorAlert />
                 ) : (
                     <>
                         <Box sx={{ pt: '50%', position: 'relative' }}>

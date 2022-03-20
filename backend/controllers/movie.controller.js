@@ -1,5 +1,4 @@
 const Movie = require('../models/movie.model');
-var multer  = require('multer')
 /**
  * 
  * @param {*} req 
@@ -87,7 +86,7 @@ exports.update = async (req, res, next) => {
     try {
         const update = req.body
         const _id = req.params._id;
-        if(req.file.path) {
+        if(req.file) {
             update.imgUrl = req.file.path;
         }
         await Movie.findByIdAndUpdate(_id, update);

@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
   const moviesData = useSelector((state: RootState) => state.allMovie);
 
-  const { data, loading, error } = moviesData;
+  const { data, loading } = moviesData;
 
   useEffect(() => {
     dispatch(getAll())
@@ -34,8 +34,6 @@ const Home: React.FC = () => {
         {
           loading ? (
             <Loader />
-          ) : error ? (
-            <ErrorAlert />
           ) : moviesList.length === 0 ? (
             <EmptyAlert />
           ) : (

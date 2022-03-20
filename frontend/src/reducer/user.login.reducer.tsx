@@ -4,7 +4,7 @@ import {
     USER_LOGIN_FAILD
 } from '../constants';
 
-let userLoginData = { data: [], loading: false, error: false };
+let userLoginData = { data: [], loading: false, error: false, errorStatus: '' };
 
 /**
  * loginDataReducer
@@ -21,7 +21,7 @@ const loginDataReducer = (state = userLoginData, action: any) => {
             state = Object.assign({}, state, { data: action.data, loading: false });
             return state;
         case USER_LOGIN_FAILD:
-            state = Object.assign({}, state, { error: true, loading: false });
+            state = Object.assign({}, state, { error: true, loading: false, errorStatus: action.errorStatus });
             return state;
         default:
             return state;
